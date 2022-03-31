@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet } from 'react-native';
-import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
+// import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
 import LoginForm from '../../components/auth/LoginForm';
 import image from '../../../assets/bg-login.png';
 import { Box, Center, Image, Text, VStack } from 'native-base';

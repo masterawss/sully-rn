@@ -1,28 +1,28 @@
 import { Box, Text, Heading, VStack, FormControl, Input, Link, Button, HStack, Center, Image } from "native-base";
 import { useEffect, useState } from "react";
 import Ripple from 'react-native-material-ripple'
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser'
+// import * as Google from 'expo-auth-session/providers/google';
+// import * as WebBrowser from 'expo-web-browser'
 
-WebBrowser.maybeCompleteAuthSession()
+// WebBrowser.maybeCompleteAuthSession()
 
 const LoginForm = () => {
   const [accessToken, setAccessToken] = useState()
   const [userInfo, setUserInfo] = useState()
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId: "52991094425-k56kgaoh6terjk9geonlvvkktbdi82h3.apps.googleusercontent.com",
-    expoClientId: "52991094425-14nfqqsh05vcufsc0u6t8m4a1n3hecb6.apps.googleusercontent.com"
-  })
+  // const [request, response, promptAsync] = Google.useAuthRequest({
+  //   androidClientId: "52991094425-k56kgaoh6terjk9geonlvvkktbdi82h3.apps.googleusercontent.com",
+  //   expoClientId: "52991094425-14nfqqsh05vcufsc0u6t8m4a1n3hecb6.apps.googleusercontent.com"
+  // })
 
-  useEffect(() => {
-    setTest(response)
-    console.log('RESPUESTA DE GOOGLE', response);
-    if(response?.type === 'success'){
-      setAccessToken(response.authentication.accessToken)
-      getUserData()
-    }
-  }, [response]);
+  // useEffect(() => {
+  //   setTest(response)
+  //   console.log('RESPUESTA DE GOOGLE', response);
+  //   if(response?.type === 'success'){
+  //     setAccessToken(response.authentication.accessToken)
+  //     getUserData()
+  //   }
+  // }, [response]);
 
   async function getUserData(){
     let userInfoResponse = await fetch("https://www.googleapis.com/userinfo/v2/me", {
@@ -44,7 +44,7 @@ const LoginForm = () => {
 
   const handleLoginGoogle = () => {
     // setTest('CLicked')
-    promptAsync({showInRevents: true})
+    // promptAsync({showInRevents: true})
   }
 
     return (
