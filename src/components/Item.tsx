@@ -1,6 +1,21 @@
 import { Box, HStack, Image, Text } from "native-base"
+import { InterfaceHStackProps } from "native-base/lib/typescript/components/primitives/Stack/HStack"
 
-export const WItem = ({avatar = null, title, subtitle=null, actions = null, ...props}) => {
+
+interface IWItem extends InterfaceHStackProps{
+  avatar    : JSX.Element | null
+  title     : string | null
+  subtitle? : string | null
+  actions?  : JSX.Element[] | JSX.Element | null
+}
+
+export const WItem = ({
+  avatar = null, 
+  title, 
+  subtitle=null, 
+  actions = null, 
+  ...props
+}: IWItem) => {
   return (
     <HStack justifyContent="space-between"  {...props}>
       <HStack>

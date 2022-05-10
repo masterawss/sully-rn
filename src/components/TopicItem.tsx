@@ -13,7 +13,7 @@ const TopicItem = ({topic, ...props}) => {
                 {topic.title}
               </Text>
               <Text>
-                {topic.horario}
+                {topic.time_range}
               </Text>
             </Box>
             <Badge style={{borderRadius: 20}} colorScheme="success">

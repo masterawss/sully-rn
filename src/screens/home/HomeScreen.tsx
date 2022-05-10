@@ -1,6 +1,5 @@
-import { Center, Text, View, VStack } from "native-base"
+import { VStack } from "native-base"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { TitleAction } from "../../components/TitleAction"
 import Greeting from "./components/Greeting"
 import SectionCursosSuscritos from "./components/SectionCursosSuscritos"
 import SectionPendientesHoy from "./components/SectionPendientesHoy"
@@ -13,10 +12,9 @@ const HomeScreen = () => {
         <VStack space={4}>
           <TopBar/>
           <Greeting/>
-          <SectionCursosSuscritos />
+          <SectionCursosSuscritos  />
           <SectionPendientesHoy />
         </VStack>
-        {/* <Text>asdasda sddasd</Text> */}
       </SafeAreaView>
     </>
   )

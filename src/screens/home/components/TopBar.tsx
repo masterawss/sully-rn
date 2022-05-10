@@ -1,8 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
 import { Box, Flex, HStack, Image, Text, VStack } from "native-base"
 import { WItem } from "../../../components/Item"
 import SimpleMenuBtn from "../../../components/SimpleMenuBtn"
 
-export default TopBar = () => {
+const TopBar = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <WItem 
@@ -13,9 +16,15 @@ export default TopBar = () => {
         subtitle="Bienvenido de vuelta"
         actions={(<>
           <SimpleMenuBtn color="white" iconName="bell" style={{marginRight: 4}} />
-          <SimpleMenuBtn color="white" iconName="search" />
+          <SimpleMenuBtn 
+            color="white" 
+            iconName="search"
+            onPress={() => navigation.navigate("Explore")}
+          />
         </>)}
       />
     </>
   )
 }
+
+export default TopBar

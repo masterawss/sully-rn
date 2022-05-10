@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet } from 'react-native';
 // import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
+import SocialForm from '../../components/auth/SocialForm';
 import LoginForm from '../../components/auth/LoginForm';
 import image from '../../../assets/bg-login.png';
 import { Box, Center, Image, Text, VStack } from 'native-base';
@@ -22,8 +23,11 @@ const LoginScreen = () => {
                 El mejor lugar para llevar el seguimiento de tus cursos
               </Text>
             </VStack>
-            <Image alt="adad" source={studyingImg}></Image>
+            <Box >
+              <Image alt="adad" source={studyingImg}></Image>
+            </Box>
             <LoginForm></LoginForm>
+            {/* <SocialForm></SocialForm> */}
           </Box>
         </Center>
 
