@@ -12,7 +12,7 @@ const HomeScreen = () => {
         <VStack space={4}>
           <TopBar/>
           <Greeting/>
-          <SectionCursosSuscritos  />
+          <SectionCursosSuscritos />
           <SectionPendientesHoy />
         </VStack>
       </SafeAreaView>

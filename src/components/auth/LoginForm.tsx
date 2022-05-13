@@ -9,6 +9,7 @@ const MUT = gql`
   mutation Login($email: String!, $password: String!) {
     login(email:$email, password: $password){
       user{
+        id
         name
       }
       token
@@ -25,8 +26,10 @@ const LoginForm = () => {
 
   const handleLogin = async () => {
     const res = await login({ variables: { email, password} })
-    // console.log('RESPUESTA', res.data.login.token);
+    console.log('RESPUESTA', res.data.login.token);
     await AsyncStorage.setItem('@token', res.data.login.token)
+    await AsyncStorage.setItem('@user', JSON.stringify(res.data.login.user))
+
     navigation.navigate('Home')
   }
 

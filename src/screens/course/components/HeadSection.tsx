@@ -1,0 +1,81 @@
+import { gql } from "@apollo/client"
+import { Box, Image, ScrollView, Text } from "native-base"
+import { useEffect, useState } from "react"
+import { ImageBackground, StyleSheet } from "react-native"
+import { WItem } from "../../../components/Item"
+import { client } from "../../../conf/apollo"
+const QUERY = gql`
+  query
+    GetCourseById($id: ID!) {
+      getCourseById(id: $id){
+        title
+        description
+        imgUrl
+        isSuscribed
+        entity{
+          name
+          avatarUrl
+        }
+        topics{
+          id
+          title
+          description
+        }
+        users{
+          user{
+            id
+            name
+          }
+        }
+      }
+    }
+`
+const HeadSection = ({id}:any) => {
+
+  const [loading, setLoading] = useState<boolean>(true)
+  const [data, setData] = useState<any>({})
+
+  useEffect(() => {
+    setLoading(true)
+    client.query({
+      query: QUERY,
+      variables: {id},
+      fetchPolicy: 'network-only',
+    }).then(data => {
+      setData(data.data.getCourseById)
+      console.log('DATA', data);
+    }).finally(() => setLoading(false))
+  }, [])
+
+  return (
+    <>
+      { !loading && data &&
+        <>
+            <ImageBackground  style={decoration.photo} source={{uri: data.imgUrl}} >
+              <Box p="2" mt="auto">
+                <Text color="white" bold fontSize="md">{data.title}</Text>
+              </Box>
+            </ImageBackground>
+            {/*
+            <Text my={2} color="muted.500" fontSize="md">{data.description}</Text>
+            <WItem
+              mt={2}
+              avatar={<Image alt="profile photo" borderRadius={100} size={10} source={{ uri: data.entity?.avatarUrl }} />}
+              title={data.entity?.name}
+            />
+            */}
+        </>
+      }
+    </>
+  )
+}
+
+export default HeadSection
+
+const decoration = StyleSheet.create({
+  photo: {
+    borderRadius: 20,
+    height: 120,
+    width: '100%'
+  },
+});

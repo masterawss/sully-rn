@@ -6,8 +6,8 @@ export const TitleAction = ({title, actionDesc, action}) => {
     <>
       <HStack justifyContent="space-between" alignItems="center">
         <Text bold>{title}</Text>
-        <Ripple>
-          <Button onClick={action} variant="ghost" colorScheme="primary" >
+        <Ripple onPress={action} >
+          <Button variant="ghost" colorScheme="primary" >
             {actionDesc}
           </Button>
         </Ripple>

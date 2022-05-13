@@ -1,8 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
-import { Box, HStack, Text } from "native-base";
-import {ScrollView} from 'react-native'
+import { Box, HStack, Text, View } from "native-base";
+import { useEffect, useState } from "react";
+import {ActivityIndicator, ScrollView} from 'react-native'
 import { TitleAction } from "../../../components/TitleAction"
 import CourseSimpleItem from '../../course/components/SimpleItem'
+import {client} from '../../../conf/apollo'
+import Loader from "../../../components/Loader";
 
 const QUERY = gql`
   query{
@@ -16,7 +19,20 @@ const QUERY = gql`
 `
 const SectionCursosSuscritos = () => {
 
-  const { loading, error, data} = useQuery(QUERY)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [data, setData] = useState<[]>([])
+
+  useEffect(() => {
+    setLoading(true)
+    client.query({
+      query: QUERY,
+      fetchPolicy: 'network-only',
+    }).then(data => {
+      setData(data.data.getSuscribedCourses)
+      console.log('DATA', data);
+    }).finally(() => setLoading(false))
+  }, [])
+
 
   function handleSuscritos(){
     console.log('asdasd');
@@ -25,22 +41,16 @@ const SectionCursosSuscritos = () => {
     <>
       <TitleAction title="Cursos suscritos" actionDesc="Ver todos" action={handleSuscritos} />
 
-      { loading && <Text>Cargando</Text> }
+      { loading && <Loader /> }
 
-      { error && <Text>Ha ocurrido un error</Text> }
-      <Text>{JSON.stringify(data)} asd</Text>
-
-      <Text>Loading {JSON.stringify(loading)}</Text>
-      <Text>Error {JSON.stringify(error)}</Text>
-      <Text>DATA {JSON.stringify(data)}</Text>
       {
-        (!loading && !error)
-        && data
-        &&
+        data &&
         <ScrollView horizontal={true} style={{marginRight: -12}}>
           <HStack space={3} >
-            { data.getSuscribedCourses.map((curso:any) => (
-                <CourseSimpleItem key={curso.id} course={curso} />
+            { data.map((curso:any) => (
+                <Box key={curso.id} style={{width: 200}}>
+                  <CourseSimpleItem course={curso} />
+                </Box>
               ))
             }
           </HStack>

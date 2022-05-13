@@ -6,7 +6,7 @@ const Greeting = () => {
     <>
       <ImageBackground imageStyle={{ borderRadius: 10 }} style={decoration.photo} source={{uri: imgUrl}} >
         <Center p="2" my="auto">
-          <Text color="white" bold fontSize="sm">No tienes actividades hoy 🥳</Text>
+          <Text color="white" bold fontSize="sm">No tienes tareas hoy 🥳</Text>
         </Center>
       </ImageBackground>
     </>

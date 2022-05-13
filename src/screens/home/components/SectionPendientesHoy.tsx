@@ -1,35 +1,58 @@
-import { Badge, Box, Text, VStack } from "native-base";
+import { Badge, Box, Text, View, VStack } from "native-base";
 import TopicItem from "../../../components/TopicItem";
 import { TitleAction } from "../../../components/TitleAction"
 import { gql, useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { client } from "../../../conf/apollo";
+import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native";
+import Loader from "../../../components/Loader";
 
 const QUERY = gql`
   query {
     getTodayUserTopics {
       id
       title
+      startDate
+      endDate
+      course{
+        id
+        imgUrl
+        title
+      }
     }
   }
 `
 
 const SectionPendientesHoy = () => {
+  const navigation = useNavigation();
 
-  const {loading, error, data} = useQuery(QUERY)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [data, setData] = useState<[]>([])
+
+  useEffect(() => {
+    setLoading(true)
+    client.query({
+      query: QUERY,
+      fetchPolicy: 'network-only',
+    }).then(data => {
+      setData(data.data.getTodayUserTopics)
+      console.log('DATA', data);
+    }).finally(() => setLoading(false))
+  }, [])
 
   function handleSuscritos(){
-    console.log('asdasd');
+    navigation.navigate('Topic.Index')
   }
   return (
     <>
       <TitleAction title="Pendientes para hoy" actionDesc="Ver todos" action={handleSuscritos} />
-      { loading && <Text>Cargando</Text> }
-
-      { error && <Text>Ha ocurrido un error</Text> }
+      { loading && <Loader /> }
       {
-        (!loading && !error) && data && 
+        data &&
         <VStack space={2}>
-          { data.getTodayUserTopics.map((tema:any) => (
-            <TopicItem key={tema.id} topic={tema} />
+          { data.map((tema:any) => (
+            <TopicItem key={tema.id} topic={tema} showCourse />
           ))}
         </VStack>
       }

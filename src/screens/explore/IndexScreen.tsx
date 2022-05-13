@@ -33,13 +33,17 @@ const IndexScreen = () => {
 
   const [query, setQuery] = useState<string>("")
 
-  const [coursesFounded, { loading, error, data }] = useLazyQuery(QUERY);
+  const [coursesFounded] = useLazyQuery(QUERY);
 
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
   const [result, setResult] = useState<[]>([])
 
   const search = async () => {
     if(query.length > 0){
+      setLoading(true)
       const r = await coursesFounded({ variables: { query: query } })
+      setLoading(false)
       setResult(r?.data?.searchCourses)
     }
   }
@@ -70,10 +74,10 @@ const IndexScreen = () => {
       <Text>DATA {JSON.stringify(data)}</Text> */}
 
       {
-        data?.searchCourses &&
+        result &&
         <FlatGrid
             itemDimension={130}
-            data={data.searchCourses}
+            data={result}
             renderItem={({ item  }) => (
               <SimpleExploreItem course={item}/>
             )}
