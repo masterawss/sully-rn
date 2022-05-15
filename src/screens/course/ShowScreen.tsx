@@ -32,35 +32,37 @@ const ShowScreen = ({route, navigation}:any) => {
     <SafeAreaView >
       <ScrollView>
         <HeadSection id={id}/>
-        <HStack style={{marginVertical: 10}} space={3} justifyContent="flex-start">
-          <Ripple onPress={() => setTab('topicos')} >
-            <Box style={ tab !== 'topicos' ? style.buttonInactive : style.buttonActive  }
-              >
-                <FontAwesome name="user"/>
-                <Text> Tópicos </Text>
-            </Box>
-          </Ripple>
-          {/*
-          <Ripple onPress={() => setTab('alumnos')} >
-            <Box style={ tab !== 'alumnos' ? style.buttonInactive : style.buttonActive  }
-              >
-                <FontAwesome name="list"/>
-                <Text> Alumnos </Text>
-            </Box>
-          </Ripple>
-          */}
-          <Ripple onPress={() => setTab('chat')} >
-            <Box style={ tab !== 'chat' ? style.buttonInactive : style.buttonActive  }
-              >
-                <FontAwesome name="comments"/>
-                <Text> Chat </Text>
-            </Box>
-          </Ripple>
-        </HStack>
-        { tab === 'topicos' && <TopicosScreen courseId={id}/> }
-        { tab === 'alumnos' && <AlumnosScreen courseId={id}/> }
-        { tab === 'chat' && <ChatScreen courseId={id}/> }
+        <View style={{padding: 10}}>
 
+          <HStack style={{marginVertical: 10}} space={3} justifyContent="flex-start">
+            <Ripple onPress={() => setTab('topicos')} >
+              <Box style={ tab !== 'topicos' ? style.buttonInactive : style.buttonActive  }
+                >
+                  <FontAwesome name="user"/>
+                  <Text> Tópicos </Text>
+              </Box>
+            </Ripple>
+            {/*
+            <Ripple onPress={() => setTab('alumnos')} >
+              <Box style={ tab !== 'alumnos' ? style.buttonInactive : style.buttonActive  }
+                >
+                  <FontAwesome name="list"/>
+                  <Text> Alumnos </Text>
+              </Box>
+            </Ripple>
+            */}
+            <Ripple onPress={() => setTab('chat')} >
+              <Box style={ tab !== 'chat' ? style.buttonInactive : style.buttonActive  }
+                >
+                  <FontAwesome name="comments"/>
+                  <Text> Chat </Text>
+              </Box>
+            </Ripple>
+          </HStack>
+          { tab === 'topicos' && <TopicosScreen courseId={id}/> }
+          { tab === 'alumnos' && <AlumnosScreen courseId={id}/> }
+          { tab === 'chat' && <ChatScreen courseId={id}/> }
+        </View>
       </ScrollView>
     </SafeAreaView>
   )

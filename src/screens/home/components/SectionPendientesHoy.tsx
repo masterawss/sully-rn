@@ -47,7 +47,6 @@ const SectionPendientesHoy = () => {
   return (
     <>
       <TitleAction title="Pendientes para hoy" actionDesc="Ver todos" action={handleSuscritos} />
-      { loading && <Loader /> }
       {
         data &&
         <VStack space={2}>

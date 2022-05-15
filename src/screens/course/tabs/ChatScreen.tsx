@@ -65,13 +65,14 @@ const ChatScreen = ({ courseId }) => {
         </ScrollView>
           <Box style={style.footer}>
             <Input
+              variant="rounded"
               value={message}
               onChangeText={setMessage}
               size="md"
               placeholder="Escribir mensaje ... "
               InputRightElement={
                 <Button size="xs" rounded="none" w="1/6" h="full" onPress={handleSend}>
-                  <Icon as={<FontAwesome name="send" /> } size={5} />
+                  <Icon as={<FontAwesome name="arrow-right" /> } color="white" size={5} />
                 </Button>
               }
             />
@@ -96,11 +97,10 @@ export default ChatScreen
 const style =StyleSheet.create({
   containerMain: {
     flex: 1,
-    height: Dimensions.get('window').height-160,
+    height: Dimensions.get('window').height-190,
   },
   footer: {
     width: '100%',
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute', //Here is the trick

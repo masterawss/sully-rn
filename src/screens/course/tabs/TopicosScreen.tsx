@@ -21,6 +21,8 @@ const QUERY = gql`
           id
           title
           description
+          startDate
+          endDate
         }
         users{
           user{

@@ -41,8 +41,6 @@ const SectionCursosSuscritos = () => {
     <>
       <TitleAction title="Cursos suscritos" actionDesc="Ver todos" action={handleSuscritos} />
 
-      { loading && <Loader /> }
-
       {
         data &&
         <ScrollView horizontal={true} style={{marginRight: -12}}>

@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client"
-import { ScrollView, Text, View, VStack } from "native-base"
+import { HStack, ScrollView, Text, View, VStack } from "native-base"
 import { useEffect, useState } from "react"
 import { ActivityIndicator, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -9,6 +9,9 @@ import { client } from "../../conf/apollo"
 
 import LottieView from 'lottie-react-native';
 import Loader from "../../components/Loader"
+
+import {Text as TextNative} from 'react-native'
+import { BackButton } from '../../components/BackButton';
 
 const QUERY = gql`
   query {
@@ -45,6 +48,10 @@ const IndexScreen = () => {
     <>
       <SafeAreaView style={{padding: 12}}>
         <ScrollView>
+          <HStack alignItems="center" mb={3}>
+            <BackButton/>
+            <TextNative style={{fontWeight: 'bold', fontSize: 25, marginTop: 10}}>Todos los temas</TextNative>
+          </HStack>
           { loading && <Loader /> }
           {
             data &&

@@ -11,7 +11,9 @@ import { ScrollView } from "react-native";
 import CourseSimpleItem from '../course/components/SimpleItem'
 import SimpleMenuBtn from "../../components/SimpleMenuBtn";
 import SimpleExploreItem from '../course/components/SimpleExploreItem';
-
+import {Text as TextNative} from 'react-native'
+import { BackButton } from '../../components/BackButton';
+import Loader from '../../components/Loader';
 const QUERY = gql`
   query searchCourses($query: String!){
     searchCourses(query: $query){
@@ -51,38 +53,40 @@ const IndexScreen = () => {
   return (
     <SafeAreaView style={{padding: 5}}>
       <Stack mt={3} space={4}>
+        <HStack alignItems="center">
+          <BackButton/>
+          <TextNative style={{fontWeight: 'bold', fontSize: 30, marginTop: 10}}>Explorar</TextNative>
+        </HStack>
         <Input
+          variant="rounded"
           value={query}
           onChangeText={setQuery}
           size="md"
           placeholder="Buscar cursos ... "
-          InputLeftElement={<Icon as={<FontAwesome name="search" />} size={5} ml="2" color="muted.400" />} 
           InputRightElement={
             <Button size="xs" rounded="none" w="1/6" h="full" onPress={search}>
-              <Icon as={<FontAwesome name="search" /> } size={5} />
+              <Icon as={<FontAwesome name="search" /> } size={5} color="white" />
             </Button>
           }
         />
+        { loading && <Loader/>}
+
+        {/* <Text>Loading {JSON.stringify(loading)}</Text>
+        <Text>Error {JSON.stringify(error)}</Text>
+        <Text>DATA {JSON.stringify(data)}</Text> */}
+
+        {
+          result &&
+          <FlatGrid
+              itemDimension={130}
+              data={result}
+              renderItem={({ item  }) => (
+                <SimpleExploreItem course={item}/>
+              )}
+            />
+        }
       </Stack>
 
-      { loading && <Text>Cargando</Text> }
-
-      { error && <Text>Ha ocurrido un error</Text> }
-
-      {/* <Text>Loading {JSON.stringify(loading)}</Text>
-      <Text>Error {JSON.stringify(error)}</Text>
-      <Text>DATA {JSON.stringify(data)}</Text> */}
-
-      {
-        result &&
-        <FlatGrid
-            itemDimension={130}
-            data={result}
-            renderItem={({ item  }) => (
-              <SimpleExploreItem course={item}/>
-            )}
-          />
-      }
     </SafeAreaView>
   )
 }

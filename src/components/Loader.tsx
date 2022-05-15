@@ -11,7 +11,6 @@ const Loader = () => {
           width: '100%',
           height: 200,
           backgroundColor: '#f2f2f2',
-          borderRadius: 500
         }}
         // Find more Lottie files at https://lottiefiles.com/featured
         source={require('../../assets/lottie/loader2.json')}

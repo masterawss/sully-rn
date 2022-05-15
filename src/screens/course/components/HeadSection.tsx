@@ -1,9 +1,11 @@
 import { gql } from "@apollo/client"
-import { Box, Image, ScrollView, Text } from "native-base"
+import { Box, HStack, Image, ScrollView, Text } from "native-base"
 import { useEffect, useState } from "react"
 import { ImageBackground, StyleSheet } from "react-native"
 import { WItem } from "../../../components/Item"
 import { client } from "../../../conf/apollo"
+import { BackButton } from '../../../components/BackButton';
+
 const QUERY = gql`
   query
     GetCourseById($id: ID!) {
@@ -49,11 +51,27 @@ const HeadSection = ({id}:any) => {
 
   return (
     <>
+      {
+        loading && <>
+          <Box style={{height: 120, backgroundColor: 'gray'}}>
+            <Box p="2" mt="auto">
+              <HStack alignItems="center">
+                <BackButton color="white"/>
+                <Text color="white" bold fontSize="md">Cargando ...</Text>
+              </HStack>
+            </Box>
+          </Box>
+        </>
+      }
       { !loading && data &&
         <>
             <ImageBackground  style={decoration.photo} source={{uri: data.imgUrl}} >
               <Box p="2" mt="auto">
-                <Text color="white" bold fontSize="md">{data.title}</Text>
+                <HStack alignItems="center">
+                  <BackButton color="white"/>
+                  <Text color="white" bold fontSize="md">{data.title}</Text>
+
+                </HStack>
               </Box>
             </ImageBackground>
             {/*
