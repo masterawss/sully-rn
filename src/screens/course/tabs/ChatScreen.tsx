@@ -133,6 +133,6 @@ const style =StyleSheet.create({
   },
   otherMessageText:{
     color: '#616161',
-    textAlign: 'right'
+    textAlign: 'left'
   }
 })

@@ -35,7 +35,7 @@ const withToken = setContext(() => {
   };
   return AsyncStorage.getItem('@token').then(userToken => {
     token = userToken;
-    console.log("TOKEN", token);
+    // // console.log("TOKEN", token);
     return { authorization: token ? `Bearer ${token}` : "" };
   });
 });

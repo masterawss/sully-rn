@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { gql, useMutation } from "@apollo/client"
 import { Box, Button, FormControl, Input, Link } from "native-base"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import Ripple from 'react-native-material-ripple'
 import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../store/auth/authProvider';
 
 const MUT = gql`
   mutation Login($email: String!, $password: String!) {
@@ -18,18 +19,20 @@ const MUT = gql`
 `
 
 const LoginForm = () => {
+  const { signIn, user } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("master.awss@gmail.com")
-  const [password, setPassword] = useState("admin1234")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [login, { loading, error, data }] = useMutation(MUT);
   const navigation = useNavigation();
 
   const handleLogin = async () => {
     const res = await login({ variables: { email, password} })
-    console.log('RESPUESTA', res.data.login.token);
-    await AsyncStorage.setItem('@token', res.data.login.token)
-    await AsyncStorage.setItem('@user', JSON.stringify(res.data.login.user))
-
+    // // console.log('RESPUESTA', res.data.login.token);
+    const {user, token} = res.data.login
+    await AsyncStorage.setItem('@token', token)
+    await AsyncStorage.setItem('@user', JSON.stringify(user))
+    signIn({user, token})
     navigation.navigate('Home')
   }
 
@@ -54,6 +57,11 @@ const LoginForm = () => {
         <Ripple onPress={handleLogin} >
           <Button disabled={loading} p={2.5} colorScheme="primary" >
             Ingresar
+          </Button>
+        </Ripple>
+        <Ripple onPress={() => navigation.navigate('SignUp')} >
+          <Button disabled={loading} p={2.5} mt={3} colorScheme="secondary" variant="outline" >
+            Crear una nueva cuenta
           </Button>
         </Ripple>
       </Box>

@@ -7,7 +7,7 @@ import * as WebBrowser from 'expo-web-browser'
 WebBrowser.maybeCompleteAuthSession()
 
 const SocialForm = () => {
-  const [accessToken, setAccessToken] = useState()
+  const [accessToken, setAccessToken] = useState<string>("")
   const [userInfo, setUserInfo] = useState()
 
   const [request, response, promptAsync] = Google.useAuthRequest({
@@ -16,8 +16,8 @@ const SocialForm = () => {
   })
 
   useEffect(() => {
-    setTest(response)
-    console.log('RESPUESTA DE GOOGLE', response);
+    // setTest(response)
+    // // console.log('RESPUESTA DE GOOGLE', response);
     if(response?.type === 'success'){
       setAccessToken(response.authentication.accessToken)
       getUserData()

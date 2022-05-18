@@ -1,1 +1,1 @@
-export const APP_URL = 'http://192.168.1.43:4000'
+export const APP_URL = 'http://192.168.1.34:4000'

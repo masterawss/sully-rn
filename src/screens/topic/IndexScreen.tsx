@@ -41,7 +41,7 @@ const IndexScreen = () => {
       fetchPolicy: 'network-only',
     }).then(data => {
       setData(data.data.getUserTopics)
-      console.log('DATA', data);
+      // console.log('DATA', data);
     }).finally(() => setLoading(false))
   }, [])
   return (

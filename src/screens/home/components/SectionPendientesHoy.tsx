@@ -37,7 +37,7 @@ const SectionPendientesHoy = () => {
       fetchPolicy: 'network-only',
     }).then(data => {
       setData(data.data.getTodayUserTopics)
-      console.log('DATA', data);
+      // console.log('DATA', data);
     }).finally(() => setLoading(false))
   }, [])
 

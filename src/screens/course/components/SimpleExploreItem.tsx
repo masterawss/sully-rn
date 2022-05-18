@@ -30,8 +30,10 @@ const SimpleExploreItem = ({course}: any) => {
   // }, [])
 
   const handlePress = () => {
-    setSuscribeToogle({ variables: { courseId: course.id } })
-    setIsSuscribed(is => !is)
+    setSuscribeToogle({ variables: { courseId: course.id } }).then(r => {
+      // console.log('RESP', r);
+      setIsSuscribed(is => !is)
+    })
     // alert('asd')
   }
   return (

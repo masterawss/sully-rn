@@ -29,13 +29,13 @@ const SectionCursosSuscritos = () => {
       fetchPolicy: 'network-only',
     }).then(data => {
       setData(data.data.getSuscribedCourses)
-      console.log('DATA', data);
+      // console.log('DATA', data);
     }).finally(() => setLoading(false))
   }, [])
 
 
   function handleSuscritos(){
-    console.log('asdasd');
+    // console.log('asdasd');
   }
   return (
     <>

@@ -31,7 +31,7 @@ const AlumnosScreen = ({ courseId }) => {
       fetchPolicy: 'network-only',
     }).then(data => {
       setData(data.data.getCourseById.users)
-      console.log('DATA', data);
+      // console.log('DATA', data);
     }).finally(() => setLoading(false))
   }, [])
 

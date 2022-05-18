@@ -46,7 +46,7 @@ const TopicosScreen = ({ courseId }) => {
       fetchPolicy: 'network-only',
     }).then(data => {
       setData(data.data.getCourseById)
-      console.log('DATA', data);
+      // console.log('DATA', data);
     }).finally(() => setLoading(false))
   }, [])
 

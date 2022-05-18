@@ -38,7 +38,7 @@ const ShowScreen = ({route, navigation}:any) => {
             <Ripple onPress={() => setTab('topicos')} >
               <Box style={ tab !== 'topicos' ? style.buttonInactive : style.buttonActive  }
                 >
-                  <FontAwesome name="user"/>
+                  <FontAwesome name="list"/>
                   <Text> Tópicos </Text>
               </Box>
             </Ripple>

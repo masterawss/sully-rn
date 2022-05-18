@@ -1,6 +1,6 @@
 import { FlatGrid } from 'react-native-super-grid';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { Box, Button, Divider, HStack, Icon, Input, Stack, Text, VStack } from "native-base"
+import { Box, Button, Center, Divider, HStack, Icon, Input, Stack, Text, VStack } from "native-base"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { FontAwesome } from '@expo/vector-icons';
 import { useEffect, useState } from "react";
@@ -46,13 +46,19 @@ const IndexScreen = () => {
       setLoading(true)
       const r = await coursesFounded({ variables: { query: query } })
       setLoading(false)
+      // console.log('RESULTADOS', r?.data?.searchCourses);
+      
       setResult(r?.data?.searchCourses)
     }
   }
 
+  useEffect(() => {
+    if(query.length == 0) setResult([])
+  }, [query])
+
   return (
     <SafeAreaView style={{padding: 5}}>
-      <Stack mt={3} space={4}>
+      <VStack mt={3} space={4}>
         <HStack alignItems="center">
           <BackButton/>
           <TextNative style={{fontWeight: 'bold', fontSize: 30, marginTop: 10}}>Explorar</TextNative>
@@ -69,14 +75,25 @@ const IndexScreen = () => {
             </Button>
           }
         />
-        { loading && <Loader/>}
+        { loading && <Box mt={30}><Loader/></Box>}
 
         {/* <Text>Loading {JSON.stringify(loading)}</Text>
         <Text>Error {JSON.stringify(error)}</Text>
         <Text>DATA {JSON.stringify(data)}</Text> */}
 
         {
-          result &&
+          query.length == 0 &&  !loading &&
+            <Center mt={6}>
+              <Icon as={<FontAwesome name="search" /> } size={20} color="gray.500" />
+              <TextNative style={{fontWeight: 'bold', fontSize: 23, marginTop: 10}}>Busca los cursos</TextNative>
+              <Text style={{textAlign: 'center'}} mt={3}>
+                Intenta buscando cursos como: React, Node, Inglés o Habilidades blandas.
+              </Text>
+            </Center>
+        }
+
+        {
+          query.length !== 0 && result && !loading &&
           <FlatGrid
               itemDimension={130}
               data={result}
@@ -85,7 +102,7 @@ const IndexScreen = () => {
               )}
             />
         }
-      </Stack>
+      </VStack>
 
     </SafeAreaView>
   )
